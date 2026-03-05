@@ -45,10 +45,6 @@ class LogClassifier:
         return df
 
 
-@st.cache_resource
-def get_classifier():
-    return LogClassifier()
-
 clf_tool = get_classifier()
 # ---------------------------------------------------
 # 2️⃣ Page Config & Auto Refresh
@@ -59,7 +55,6 @@ st_autorefresh(interval=10000, key="refresh")
 # ---------------------------------------------------
 # 3️⃣ Load Logs (JSON)
 # ---------------------------------------------------
-@st.cache_data
 def load_data():
     with open('logs.json', 'r') as f:
         data = json.load(f)
@@ -223,4 +218,5 @@ st.dataframe(
     .style.apply(color_rows, axis=1),
     use_container_width=True
 )
+
 
