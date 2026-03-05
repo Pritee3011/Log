@@ -45,7 +45,7 @@ class LogClassifier:
         return df
 
 
-clf_tool = get_classifier()
+clf_tool = LogClassifier()
 # ---------------------------------------------------
 # 2️⃣ Page Config & Auto Refresh
 # ---------------------------------------------------
@@ -218,5 +218,6 @@ st.dataframe(
     .style.apply(color_rows, axis=1),
     use_container_width=True
 )
+
 
 
