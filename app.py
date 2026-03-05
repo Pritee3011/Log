@@ -106,7 +106,7 @@ def get_alerts(df):
 # ---------------------------------------------------
 # 5️⃣ UI Layout
 # ---------------------------------------------------
-st.title("🛡️ Log Monitoring & Alerting")
+st.title("Log Monitoring & Alerting")
 st.caption(f"Last sync: {datetime.now().strftime('%H:%M:%S')} | Smart Search Enabled")
 
 # ---------------------------------------------------
@@ -172,12 +172,12 @@ time_filtered_df = filtered_df[
 
 # Export CSV
 csv = time_filtered_df.to_csv(index=False).encode('utf-8')
-st.sidebar.download_button("📥 Export CSV", csv, "logs.csv", "text/csv")
+st.sidebar.download_button("Export CSV", csv, "logs.csv", "text/csv")
 
 # ---------------------------------------------------
 # 8️⃣ Alerts Display (UNCHANGED)
 # ---------------------------------------------------
-st.subheader("🚨 Active Alerts")
+st.subheader("Active Alerts")
 for a in get_alerts(df):
     with st.expander(f"{a['name']} - {a['severity']}", expanded=True):
         st.write(a['reason'])
@@ -185,14 +185,14 @@ for a in get_alerts(df):
 # ---------------------------------------------------
 # 9️⃣ Error Trend Chart (UNCHANGED)
 # ---------------------------------------------------
-st.subheader("📈 Error count over time")
+st.subheader("Error count over time")
 err_trend = df[df['level'] == 'ERROR'].resample('1min', on='time').count()['level']
 st.line_chart(err_trend)
 
 # ---------------------------------------------------
 # 🔟 NEW: Pie Chart (Category-wise Errors in Time Window)
 # ---------------------------------------------------
-st.subheader(f"📊 Error Distribution (Last {time_window} Minutes)")
+st.subheader(f"Error Distribution (Last {time_window} Minutes)")
 
 error_only = time_filtered_df[time_filtered_df['level'] == 'ERROR']
 
@@ -217,9 +217,10 @@ def color_rows(row):
     return [''] * len(row)
 
 
-st.subheader("📄 Filtered Logs (Time Window Applied)")
+st.subheader("Filtered Logs (Time Window Applied)")
 st.dataframe(
     time_filtered_df.sort_values(by='time', ascending=False)
     .style.apply(color_rows, axis=1),
     use_container_width=True
 )
+
